@@ -55,7 +55,8 @@ require_once('../../database/dbhelper.php');
                         <td>' . $index++ . '</td>
                         <td>' . $list['name'] . '</td>
                         <td><a href="add.php?id=' . $list['id'] . '"><button type="button" class="btn btn-warning">Sửa</button></a></td>
-                        <td><button type="button" class="btn btn-danger">Xoá</button></td>
+                        <td><button type="button" class="btn btn-danger" 
+                        onclick="deleteCategory(' . $list['id'] . ')">Xoá</button></td>
                     </tr>';
                     }
                     ?>
@@ -64,6 +65,33 @@ require_once('../../database/dbhelper.php');
             </table>
         </div>
     </div>
+    <script type="text/javascript">
+        function deleteCategory(id) {
+            var option = confirm('Ban có chắc muốn xóa danh mục này không?');
+            if (!option) {
+                return;
+            }
+            console.log(id)
+            //ajax - lenh post
+            $.post('ajax.php', {
+                'id': id,
+                'action': 'delete'
+            }, function(data) {
+                location.reload()
+            })
+        }
+    </script>
+    <!-- <script type="text/javascript">
+        function validateform() {
+            $pwd = $('#pwd').val();
+            $confirm_pwd = $('#confirmation_pwd').val();
+            if ($pwd != $confirm_pwd) {
+                alert("Mật khẩu không khớp, vui lòng kiểm tra lại");
+                return false;
+            }
+            return true;
+        }
+    </script> -->
 </body>
 
 </html>

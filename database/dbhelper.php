@@ -2,7 +2,7 @@
 define('host', 'localhost');
 define('user', 'root');
 define('password', '');
-define('database', 'webbanhang2');
+define('database', 'webhoaqua');
 
 function execute($sql)
 {
