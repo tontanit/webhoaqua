@@ -32,9 +32,9 @@ require_once('../../database/dbhelper.php');
     <div class="container">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h2 class="text-center">Danh mục sản phẩm</h2>
+                <h2 class="text-center">Quản lý Danh mục sản phẩm</h2>
             </div>
-            <a href="add.php"><button type="button" class="btn btn-success">Thêm mới</button></a>
+            <a href="add.php"><button type="button" class="btn btn-success">Thêm mới Danh mục</button></a>
             <table class="table table-striped">
                 <thead>
                     <tr>
