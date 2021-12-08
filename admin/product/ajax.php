@@ -7,7 +7,7 @@ if (!empty($_POST)) {
             case 'delete':
                 if (isset($_POST['id'])) {
                     $id = $_POST['id'];
-                    $sql = "DELETE FROM category WHERE id = '$id'";
+                    $sql = "DELETE FROM product WHERE id = '$id'";
                     execute($sql);
                 }
                 break;

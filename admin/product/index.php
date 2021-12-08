@@ -66,7 +66,7 @@ require_once('../../database/dbhelper.php');
                         <td>' . $list['update_at'] . '</td>
                         <td><a href="add.php?id=' . $list['id'] . '"><button type="button" class="btn btn-warning">Sửa</button></a></td>
                         <td><button type="button" class="btn btn-danger" 
-                        onclick="deleteCategory(' . $list['id'] . ')">Xoá</button></td>
+                        onclick="deleteProduct(' . $list['id'] . ')">Xoá</button></td>
                     </tr>';
                     }
                     ?>
@@ -76,8 +76,8 @@ require_once('../../database/dbhelper.php');
         </div>
     </div>
     <script type="text/javascript">
-        function deleteCategory(id) {
-            var option = confirm('Ban có chắc muốn xóa danh mục này không?');
+        function deleteProduct(id) {
+            var option = confirm('Ban có chắc muốn xóa Sản phẩm này không?');
             if (!option) {
                 return;
             }

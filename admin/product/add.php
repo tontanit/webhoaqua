@@ -59,22 +59,41 @@ if (!empty($result)) {
 
     </ul>
     <div class="container">
-        <div class="panel panel-primary">
+        <div class="panel panel-primary" style="width: 900px; margin:auto;">
             <div class="panel-heading">
                 <h2 class="text-center">Thêm/sửa Danh mục Sản phẩm</h2>
             </div>
             <form action="" method="post">
                 <div class="panel-body">
                     <div class="form-group">
-                        <label for="usr">Tên danh muc:</label>
+                        <label for="usr">Tên Sản phẩm:</label>
                         <input type="text" name="id" id="id" value="<?= $id ?>" hidden="true">
                         <input name="name" value="<?= $name ?>" required="true" type="text" class="form-control" id="usr">
+                    </div>
+                    <div class="form-group">
+                        <label for="usr">Danh mục sản phẩm:</label>
+                        <select name="id_category" id="id_category" class="form-control">
+                            <option value="">--Chọn--</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="usr">Giá Bán:</label>
                         <input name="name" value="" required="true" type="number" class="form-control" id="usr">
                     </div>
+                    <div class="form-group">
+                        <label for="usr">Giảm giá:</label>
+                        <input name="name" value="" required="true" type="number" class="form-control" id="usr">
+                    </div>
+                    <div class="form-group">
+                        <label for="usr">Ảnh</label>
+                        <input name="name" value="" type="text" class="form-control" id="usr">
+                    </div>
 
+                    <div class="form-group">
+                        <label for="content">Nội dung:</label>
+                        <textarea class="form-control" name="content" id="" rows="10"></textarea>
+
+                    </div>
 
                     <button class="btn btn-success" name="btn_execute"><?php if ($id != 0) {
                                                                             echo 'Sửa';
