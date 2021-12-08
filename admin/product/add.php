@@ -4,30 +4,36 @@ require_once('../../database/dbhelper.php');
 $id = $create_at = $update_at = $name = '';
 
 if (isset($_POST['btn_execute'])) {
-    $name = getPost('name');
-    $id = getPost('id');
-    if ($id == '') {
-        $create_at = $update_at = date('Y-m-d h:i:s');
-        $sql = "INSERT INTO `category`(`name`, `create_at`, `update_at`) VALUES ('$name','$create_at','$update_at')";
-        execute($sql);
-        header('location: index.php');
-        die();
-    } else {
-        $create_at = $update_at = date('Y-m-d h:i:s');
-        $sql = "UPDATE `category` SET `name`='$name',`create_at`='$create_at',
-        `update_at`='$update_at' WHERE id = $id";
-        execute($sql);
-        header('location: index.php');
-        die();
-    }
+    $title = getPost('title');
+    $id_category = getPost('id_category');
+    $price = getPost('price');
+    $discount = getPost('discount');
+    $thumbnail = getPost('thumbnail');
+    $content = getPost('content');
+
+    // $id = getPost('id');
+    // if ($id == '') {
+    //     $create_at = $update_at = date('Y-m-d h:i:s');
+    //     $sql = "INSERT INTO `category`(`name`, `create_at`, `update_at`) VALUES ('$name','$create_at','$update_at')";
+    //     execute($sql);
+    //     header('location: index.php');
+    //     die();
+    // } else {
+    //     $create_at = $update_at = date('Y-m-d h:i:s');
+    //     $sql = "UPDATE `category` SET `name`='$name',`create_at`='$create_at',
+    //     `update_at`='$update_at' WHERE id = $id";
+    //     execute($sql);
+    //     header('location: index.php');
+    //     die();
+    // }
 }
 
-$id = getGet('id');
-$sql = "SELECT * FROM category WHERE id='$id'";
-$result = executeSelect($sql, true);
-if (!empty($result)) {
-    $name = $result['name'];
-}
+// $id = getGet('id');
+// $sql = "SELECT * FROM product WHERE id='$id'";
+// $result = executeSelect($sql, true);
+// if (!empty($result)) {
+//     $name = $result['name'];
+// }
 
 ?>
 <!DOCTYPE html>
@@ -67,8 +73,8 @@ if (!empty($result)) {
                 <div class="panel-body">
                     <div class="form-group">
                         <label for="usr">Tên Sản phẩm:</label>
-                        <input type="text" name="id" id="id" value="<?= $id ?>" hidden="true">
-                        <input name="name" value="<?= $name ?>" required="true" type="text" class="form-control" id="usr">
+                        <input type="text" name="id" id="id" value="<?= $id ?>">
+                        <input name="title" value="" required="true" type="text" class="form-control" id="usr">
                     </div>
                     <div class="form-group">
                         <label for="usr">Danh mục sản phẩm:</label>
@@ -78,15 +84,15 @@ if (!empty($result)) {
                     </div>
                     <div class="form-group">
                         <label for="usr">Giá Bán:</label>
-                        <input name="name" value="" required="true" type="number" class="form-control" id="usr">
+                        <input name="price" value="" required="true" type="number" class="form-control" id="usr">
                     </div>
                     <div class="form-group">
                         <label for="usr">Giảm giá:</label>
-                        <input name="name" value="" required="true" type="number" class="form-control" id="usr">
+                        <input name="discount" value="" type="number" class="form-control" id="usr">
                     </div>
                     <div class="form-group">
                         <label for="usr">Ảnh</label>
-                        <input name="name" value="" type="text" class="form-control" id="usr">
+                        <input name="thumbnail" value="" type="text" class="form-control" id="usr">
                     </div>
 
                     <div class="form-group">
