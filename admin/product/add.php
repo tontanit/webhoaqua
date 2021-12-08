@@ -5,11 +5,20 @@ $id = $create_at = $update_at = $name = '';
 
 if (isset($_POST['btn_execute'])) {
     $title = getPost('title');
-    $id_category = getPost('id_category');
+    $category_id = getPost('category_id');
     $price = getPost('price');
     $discount = getPost('discount');
     $thumbnail = getPost('thumbnail');
     $content = getPost('content');
+
+    $create_at = $update_at = date('Y-m-d h:i:s');
+
+    $sql = "INSERT INTO `product`(`category_id`, `title`, `price`, `discount`, `thumbnail`, 
+    `description`, `created_at`, `update_at`, `deleted`) VALUES ('$category_id', '$title', '$price', 
+   ' $discount', '$thumbnail', '$content', '$create_at', '$update_at', '0')";
+    execute($sql);
+    header('location: index.php');
+    die();
 
     // $id = getPost('id');
     // if ($id == '') {
@@ -29,11 +38,20 @@ if (isset($_POST['btn_execute'])) {
 }
 
 // $id = getGet('id');
-// $sql = "SELECT * FROM product WHERE id='$id'";
-// $result = executeSelect($sql, true);
-// if (!empty($result)) {
-//     $name = $result['name'];
-// }
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+}
+$sql = "SELECT * FROM product WHERE id = '$id'";
+
+$result = executeSelect($sql, true);
+if (!empty($result)) {
+    $title = $result['title'];
+    $category_id = $result['category_id'];
+    $price = $result['price'];
+    $discount = $result['discount'];
+    $thumbnail = $result['thumbnail'];
+    $content = $result['description'];
+}
 
 ?>
 <!DOCTYPE html>
@@ -74,30 +92,39 @@ if (isset($_POST['btn_execute'])) {
                     <div class="form-group">
                         <label for="usr">Tên Sản phẩm:</label>
                         <input type="text" name="id" id="id" value="<?= $id ?>">
-                        <input name="title" value="" required="true" type="text" class="form-control" id="usr">
+                        <input name="title" value="<?= $title ?>" required="true" type="text" class="form-control" id="usr">
                     </div>
                     <div class="form-group">
                         <label for="usr">Danh mục sản phẩm:</label>
-                        <select name="id_category" id="id_category" class="form-control">
+                        <select name="category_id" id="id_category" class="form-control">
                             <option value="">--Chọn--</option>
+                            <?php
+                            $sql = "SELECT * FROM category where id = '$category_id'";
+                            $result = executeSelect($sql);
+                            foreach ($result as $list) {
+                                echo '
+                                     <option value="' . $list['id'] . '">' . $list['name'] . '</option>';
+                            }
+                            ?>
+
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="usr">Giá Bán:</label>
-                        <input name="price" value="" required="true" type="number" class="form-control" id="usr">
+                        <input name="price" value="<?= $price ?>" required="true" type="number" class="form-control" id="usr">
                     </div>
                     <div class="form-group">
                         <label for="usr">Giảm giá:</label>
-                        <input name="discount" value="" type="number" class="form-control" id="usr">
+                        <input name="discount" value="<?= $discount ?>" type="number" class="form-control" id="usr">
                     </div>
                     <div class="form-group">
                         <label for="usr">Ảnh</label>
-                        <input name="thumbnail" value="" type="text" class="form-control" id="usr">
+                        <input name="thumbnail" value="<?= $thumbnail ?>" type="text" class="form-control" id="usr">
                     </div>
 
                     <div class="form-group">
                         <label for="content">Nội dung:</label>
-                        <textarea class="form-control" name="content" id="" rows="10"></textarea>
+                        <textarea class="form-control" name="content" id="" rows="10"><?= $content ?></textarea>
 
                     </div>
 
