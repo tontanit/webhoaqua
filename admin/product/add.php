@@ -14,7 +14,7 @@ if (isset($_POST['btn_execute'])) {
     $thumbnail = getPost('thumbnail');
     $content = getPost('content');
 
-    // Lay id de tao form sua
+    // Lay id de chuyen tu form Them moi sang form Update
     $id = getPost('id');
     $create_at = $update_at = date('Y-m-d h:i:s');
     if ($id == '') {
@@ -33,24 +33,6 @@ if (isset($_POST['btn_execute'])) {
         // echo $sql;
         die();
     }
-
-
-
-
-    // if ($id == '') {
-    //     $create_at = $update_at = date('Y-m-d h:i:s');
-    //     $sql = "INSERT INTO `category`(`name`, `create_at`, `update_at`) VALUES ('$name','$create_at','$update_at')";
-    //     execute($sql);
-    //     header('location: index.php');
-    //     die();
-    // } else {
-    //     $create_at = $update_at = date('Y-m-d h:i:s');
-    //     $sql = "UPDATE `category` SET `name`='$name',`create_at`='$create_at',
-    //     `update_at`='$update_at' WHERE id = $id";
-    //     execute($sql);
-    //     header('location: index.php');
-    //     die();
-    // }
 }
 
 
@@ -87,6 +69,11 @@ if (!empty($result)) {
 
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <!-- - Chen summernote  -->
+    <!-- include summernote css/js -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 </head>
 
 <body>
@@ -136,12 +123,13 @@ if (!empty($result)) {
                     </div>
                     <div class="form-group">
                         <label for="usr">Ảnh</label>
-                        <input name="thumbnail" value="<?= $thumbnail ?>" type="text" class="form-control" id="usr">
+                        <input name="thumbnail" value="<?= $thumbnail ?>" type="text" class="form-control" id="thumbnail" onchange="updateThumbnail()">
+                        <img src="<?= $thumbnail ?>" id="img_thumbnail" alt="" sizes="" srcset="" style="max-width:100px">
                     </div>
 
                     <div class="form-group">
                         <label for="content">Nội dung:</label>
-                        <textarea class="form-control" name="content" id="" rows="4"><?= $content ?></textarea>
+                        <textarea class="form-control" name="content" id="content" rows="4"><?= $content ?></textarea>
 
                     </div>
 
@@ -151,6 +139,24 @@ if (!empty($result)) {
                 </div>
             </form>
         </div>
+        <script type="text/javascript">
+            function updateThumbnail() {
+                $('#img_thumbnail').attr('src', $('#thumbnail').val())
+            }
+
+            // summernote
+            $(function() {
+                //đợi website load noi dung xong --> xu ly phan js
+
+                $('#content').summernote({
+                    height: 300, // set editor height
+                    minHeight: null, // set minimum height of editor
+                    maxHeight: null, // set maximum height of editor
+                    focus: true // set focus to editable area after initializing summernote
+                });
+
+            })
+        </script>
 </body>
 
 </html>
