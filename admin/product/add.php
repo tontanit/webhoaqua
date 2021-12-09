@@ -2,6 +2,9 @@
 require_once('../../database/dbhelper.php');
 
 $id = $create_at = $update_at = $name = '';
+$title = $category_id = $price = $discount = $thumbnail = $content = '';
+
+
 
 if (isset($_POST['btn_execute'])) {
     $title = getPost('title');
@@ -11,16 +14,29 @@ if (isset($_POST['btn_execute'])) {
     $thumbnail = getPost('thumbnail');
     $content = getPost('content');
 
+    // Lay id de tao form sua
+    $id = getPost('id');
     $create_at = $update_at = date('Y-m-d h:i:s');
+    if ($id == '') {
 
-    $sql = "INSERT INTO `product`(`category_id`, `title`, `price`, `discount`, `thumbnail`, 
+        $sql = "INSERT INTO `product`(`category_id`, `title`, `price`, `discount`, `thumbnail`, 
     `description`, `created_at`, `update_at`, `deleted`) VALUES ('$category_id', '$title', '$price', 
-   ' $discount', '$thumbnail', '$content', '$create_at', '$update_at', '0')";
-    execute($sql);
-    header('location: index.php');
-    die();
+   '$discount', '$thumbnail', '$content', '$create_at', '$update_at', '0')";
+        execute($sql);
+        header('location: index.php');
+        die();
+    } else {
+        $sql = "UPDATE `product` SET `category_id`='$category_id',`title`='$title',`price`='$price',
+        `discount`='$discount',`thumbnail`='$thumbnail',`description`='$content', `update_at`='$update_at',`deleted`='0' WHERE id = '$id'";
+        execute($sql);
+        header('location: index.php');
+        // echo $sql;
+        die();
+    }
 
-    // $id = getPost('id');
+
+
+
     // if ($id == '') {
     //     $create_at = $update_at = date('Y-m-d h:i:s');
     //     $sql = "INSERT INTO `category`(`name`, `create_at`, `update_at`) VALUES ('$name','$create_at','$update_at')";
@@ -37,7 +53,8 @@ if (isset($_POST['btn_execute'])) {
     // }
 }
 
-// $id = getGet('id');
+
+// Lay noi dung dua vao form khi form chuyen qua Update
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 }
@@ -99,7 +116,7 @@ if (!empty($result)) {
                         <select name="category_id" id="id_category" class="form-control">
                             <option value="">--Chọn--</option>
                             <?php
-                            $sql = "SELECT * FROM category where id = '$category_id'";
+                            $sql = "SELECT * FROM category";
                             $result = executeSelect($sql);
                             foreach ($result as $list) {
                                 echo '
@@ -124,7 +141,7 @@ if (!empty($result)) {
 
                     <div class="form-group">
                         <label for="content">Nội dung:</label>
-                        <textarea class="form-control" name="content" id="" rows="10"><?= $content ?></textarea>
+                        <textarea class="form-control" name="content" id="" rows="4"><?= $content ?></textarea>
 
                     </div>
 
