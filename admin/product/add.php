@@ -2,7 +2,7 @@
 require_once('../../database/dbhelper.php');
 
 $id = $create_at = $update_at = $name = '';
-$title = $category_id = $price = $discount = $thumbnail = $content = '';
+$title = $category_id = $price = $discount = $thumbnail = $content = $selected = '';
 
 
 
@@ -106,8 +106,12 @@ if (!empty($result)) {
                             $sql = "SELECT * FROM category";
                             $result = executeSelect($sql);
                             foreach ($result as $list) {
+                                if ($list['id'] == $category_id) {
+                                    echo '
+                                    <option  selected="selected" value="' . $list['id'] . '">' . $list['name'] . '</option>';
+                                }
                                 echo '
-                                     <option value="' . $list['id'] . '">' . $list['name'] . '</option>';
+                                     <option ' . $list['id'] . '">' . $list['name'] . '</option>';
                             }
                             ?>
 
@@ -133,9 +137,9 @@ if (!empty($result)) {
 
                     </div>
 
-                    <button class="btn btn-success" name="btn_execute"><?php if ($id != 0) {
-                                                                            echo 'Sửa';
-                                                                        } else echo 'Thêm'; ?></button>
+                    <button class="btn btn-success" name="btn_execute"><?php if ($id == '') {
+                                                                            echo 'Thêm';
+                                                                        } else echo 'Sửa'; ?></button>
                 </div>
             </form>
         </div>
