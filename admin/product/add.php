@@ -106,13 +106,13 @@ if (!empty($result)) {
                             $sql = "SELECT * FROM category";
                             $result = executeSelect($sql);
                             foreach ($result as $list) {
-                                if ($list['id'] == $category_id) {
-                                    echo '
-                                    <option  selected="selected" value="' . $list['id'] . '">' . $list['name'] . '</option>';
-                                }
-                                echo '
-                                     <option ' . $list['id'] . '">' . $list['name'] . '</option>';
-                            }
+                            ?>
+
+                                <option <?php if ($list['id'] == $category_id) {
+                                            echo 'selected = "selected"';
+                                        } ?> value="<?php echo $list['id'] ?>"><?php echo $list['name'] ?></option>';
+
+                            <?php    }
                             ?>
 
                         </select>
