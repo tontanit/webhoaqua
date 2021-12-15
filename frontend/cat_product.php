@@ -1,11 +1,19 @@
 <?php
-require_once('../../database/dbhelper.php');
+require_once('../database/dbhelper.php');
+
+$name = '';
+$id = getGet('id');
+$sql = "SELECT * FROM category WHERE id='$id'";
+$result = executeSelect($sql, true);
+if (!empty($result)) {
+    $name = $result['name'];
+}
 ?>
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title>Quản lý Sản phẩm</title>
+    <title>Category - <?= $name ?></title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -20,21 +28,13 @@ require_once('../../database/dbhelper.php');
 </head>
 
 <body>
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-            <a class="nav-link" href="../category">Quản lý Danh mục</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active" href="#">Quản lý Sản phẩm</a>
-        </li>
 
-    </ul>
     <div class="container">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h2 class="text-center">Quản lý Sản phẩm</h2>
+                <h2 style="margin-top: 30px" class="text-center"><?= $name ?></h2>
             </div>
-            <a href="add.php"><button type="button" class="btn btn-success">Thêm Sản phẩm</button></a>
+            <a href="../admin/product/add.php"><button style="margin-bottom: 5px;" type="button" class="btn btn-success">Thêm Sản phẩm</button></a>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -51,17 +51,19 @@ require_once('../../database/dbhelper.php');
                 <tbody>
 
                     <?php
+
                     $sql = "SELECT product.*, category.name
                     FROM product LEFT JOIN category ON product.category_id = category.id
-                    ";
+                    WHERE category.id = '$id' ";
                     $result = executeSelect($sql);
                     $index = 1;
+
                     foreach ($result as $list) {
                         echo '  <tr>
                         <td>' . $index++ . '</td>
-                        <td><img src="' . $list['thumbnail'] . '" style="max-width:90px"></td>
+                        <td><img src="' . $list['thumbnail'] . '" style="max-width:100px"></td>
                         <td>' . $list['title'] . '</td>
-                        <td>' . $list['price'] . '</td>
+                        <td>' . number_format($list['price']) . '</td>
                         <td>' . $list['name'] . '</td>
                         <td>' . $list['update_at'] . '</td>
                         <td><a href="add.php?id=' . $list['id'] . '"><button type="button" class="btn btn-warning">Sửa</button></a></td>
